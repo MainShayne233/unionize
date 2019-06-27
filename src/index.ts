@@ -127,8 +127,9 @@ export function unionize<Record>(record: Record, config?: { value?: string; tag?
     return handler ? handler(valProp ? variant[valProp] : variant) : defaultCase(variant);
   }
 
-  const match = (first: any, second?: any) =>
-    second ? evalMatch(first, second) : (variant: any) => evalMatch(variant, first);
+  function match<A>(first: any, second?: any): A {
+    return second ? evalMatch(first, second) : (variant: any) => evalMatch(variant, first);
+  }
 
   const identity = <A>(x: A) => x;
   const transform = (first: any, second?: any) =>
